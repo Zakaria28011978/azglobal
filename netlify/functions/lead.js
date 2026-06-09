@@ -43,6 +43,9 @@ function hubspotProps(d) {
     jobtitle: d.jobtitle || d.role || d.title || "",
     country: d.country || "",
     phone: d.phone || "",
+    service_interest: d.service || "",
+    lead_source: d.source || "Website",
+    brief_message: d.message || "",
     lifecyclestage: "lead",
   };
   Object.keys(props).forEach((k) => { if (props[k] === "" || props[k] == null) delete props[k]; });

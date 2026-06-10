@@ -39,13 +39,10 @@ function hubspotProps(d) {
     email: d.email || "",
     firstname: d.firstName || firstname || "",
     lastname: d.lastName || rest.join(" ") || "",
-    company: d.company || "",
+    company: d.company || d.org || "",
     jobtitle: d.jobtitle || d.role || d.title || "",
     country: d.country || "",
     phone: d.phone || "",
-    service_interest: d.service || "",
-    lead_source: d.source || "Website",
-    brief_message: d.message || "",
     lifecyclestage: "lead",
   };
   Object.keys(props).forEach((k) => { if (props[k] === "" || props[k] == null) delete props[k]; });
@@ -82,6 +79,12 @@ function emailBody(d) {
   if (d.annualRevenue != null) extra += line("Annual revenue", d.annualRevenue);
   if (d.shrinkagePct != null) extra += line("Shrinkage %", d.shrinkagePct);
   if (d.region) extra += line("Region", d.region);
+  if (d.locations != null) extra += line("Locations", d.locations);
+  if (d.employees != null) extra += line("Employees", d.employees);
+  if (d.revenue != null && d.annualRevenue == null) extra += line("Annual revenue", d.revenue);
+  if (d.type) extra += line("Sector / operation type", d.type);
+  if (d.lang) extra += line("Tool language", d.lang);
+  if (d.score != null && d.overallScore == null) extra += line("Score", d.score);
   if (d.domainScores) extra += line("Domain scores", JSON.stringify(d.domainScores));
   if (d.priorityFindings) extra += line("Priority findings", JSON.stringify(d.priorityFindings));
   if (Array.isArray(d.answers)) extra += line("Answers", JSON.stringify(d.answers));
@@ -89,7 +92,7 @@ function emailBody(d) {
   return (
     `New lead — ${d.source || d.toolSource || "Website"}\n\n` +
     line("Name", d.name || `${d.firstName || ""} ${d.lastName || ""}`.trim()) +
-    line("Company", d.company) +
+    line("Company", d.company || d.org) +
     line("Role", d.role || d.jobtitle || d.title) +
     line("Country", d.country) +
     line("Email", d.email) +

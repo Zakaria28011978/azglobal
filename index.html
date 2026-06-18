@@ -37,8 +37,11 @@ PRESENT & UNCHANGED (verified, authored by client):
   USt-IdNr / register) are complete before launch, German law (§5 DDG/TMG) requires it.
 
 STILL OPEN (need your input / outside this mandate):
-A. Booking funnel: 4 placeholders replaced with token https://calendly.com/zakaria-ayyad-a-zglobal/30min (see
-   handoff notes). Real URL still required at deploy, token NOT a working link.
+A. [RESOLVED 2026-06-18] Booking funnel: Calendly URL confirmed live.
+   https://calendly.com/zakaria-ayyad-a-zglobal/30min wired into the two
+   "Book a Consultation with Zakaria Ayyad" CTAs (founder-authority + final-cta)
+   and into the 3 audit-module post-quiz funnels. All other CTAs still route
+   to #contact form (scope-specific intent: assessments, reviews, fractional).
 B. [RESOLVED 2026-06-18] genJarvis() removed from all three audit modules.
    Previously sent prospect PII + audit answers to api.anthropic.com client-side.
    Function definitions deleted; no call sites existed. Free diagnostic tools
@@ -695,7 +698,7 @@ footer{background:#080808;border-top:1px solid var(--border);padding:74px 0 34px
         <span class="cred"><b>25+</b> Years International Experience</span>
       </div>
       <p class="proof">Operational security experience built inside major international retailers, logistics operators, luxury brands and event organisations.</p>
-      <a href="#contact" class="btn btn-text">Book a Consultation with Zakaria Ayyad <span class="ar">→</span></a>
+      <a href="https://calendly.com/zakaria-ayyad-a-zglobal/30min" target="_blank" rel="noopener noreferrer" class="btn btn-text">Book a Consultation with Zakaria Ayyad <span class="ar">→</span></a>
     </div>
   </div>
 </section>
@@ -948,7 +951,7 @@ footer{background:#080808;border-top:1px solid var(--border);padding:74px 0 34px
     <p class="lead">A-Z Global works with a select number of organisations at any given time. Engagements begin with a consultation, a focused conversation with Zakaria Ayyad about your security priorities, risk environment, and objectives.</p>
     <p class="lead">There is no obligation. There is no sales pitch. There is only a senior advisor who will tell you exactly where you stand, and what it would take to change it.</p>
     <div class="fc-cta">
-      <a href="#contact" class="btn btn-gold">Book a Consultation with Zakaria Ayyad <span class="ar">→</span></a>
+      <a href="https://calendly.com/zakaria-ayyad-a-zglobal/30min" target="_blank" rel="noopener noreferrer" class="btn btn-gold">Book a Consultation with Zakaria Ayyad <span class="ar">→</span></a>
     </div>
     <p class="fc-mail">Or email directly: <a href="mailto:info@a-zglobal.com">info@a-zglobal.com</a></p>
   </div>
@@ -975,12 +978,8 @@ footer{background:#080808;border-top:1px solid var(--border);padding:74px 0 34px
         <div class="field"><label>Company</label><input type="text" name="company" required></div>
       </div>
       <div class="f-row">
-        <div class="field"><label>Role</label><input type="text" name="role" required></div>
         <div class="field"><label>Country</label><input type="text" name="country" required></div>
-      </div>
-      <div class="f-row">
         <div class="field"><label>Email</label><input type="email" name="email" required></div>
-        <div class="field"><label>Phone</label><input type="tel" name="phone"></div>
       </div>
       <div class="field"><label>Service of Interest</label>
         <select name="service" required>
@@ -5279,7 +5278,8 @@ body.az-locked{overflow:hidden!important}
 }
 #contact .form .field textarea{padding-top:30px!important;min-height:120px!important}
 #contact .form .field.is-focused label,
-#contact .form .field.has-value label{
+#contact .form .field.has-value label,
+#contact .form .field:has(select) label{
   top:6px;
   font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;
   color:var(--gold2);

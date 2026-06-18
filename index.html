@@ -369,7 +369,7 @@ h1,h2,h3,h4{-webkit-hyphens:auto;hyphens:auto}
 .svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border2);border:1px solid var(--border2)}
 .svc{background-color:var(--black2);background-image:linear-gradient(165deg,rgba(201,168,76,.055),transparent 46%);padding:48px 44px;position:relative;cursor:pointer;transition:.4s;display:flex;flex-direction:column;min-height:300px;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(201,168,76,.14)}
 .svc:hover{background-color:var(--black3);box-shadow:inset 0 0 0 1px rgba(201,168,76,.5),0 0 40px rgba(201,168,76,.08)}
-.svc .num{font-family:var(--serif);font-size:13px;color:var(--gold1);letter-spacing:.2em}
+.svc .num{display:none}
 .svc .purpose{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold1);margin:18px 0 10px}
 .svc h3{font-size:1.85rem;line-height:1.12;margin-bottom:14px}
 .svc h3 sup{font-size:.5em;color:var(--gold1);top:-.9em}
@@ -381,8 +381,8 @@ h1,h2,h3,h4{-webkit-hyphens:auto;hyphens:auto}
 .svc .go .ar{transition:.3s;display:inline-block}
 .svc:hover .go .ar{transform:translateX(4px)}
 .svc::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;background:var(--gold-grad);opacity:.45;transition:.4s}
-.svc::after{content:attr(data-n);position:absolute;top:14px;right:28px;font-family:var(--serif);font-size:6rem;line-height:1;color:var(--gold1);opacity:.13;pointer-events:none;transition:.4s}
-.svc:hover::after{opacity:.24}
+.svc::after{content:attr(data-n);position:absolute;top:14px;right:28px;font-family:var(--serif);font-weight:600;font-size:6rem;line-height:1;color:var(--gold2);opacity:.42;pointer-events:none;transition:.4s}
+.svc:hover::after{opacity:.58}
 .svc-banner{margin-top:1px;border:1px solid var(--border2);background:linear-gradient(135deg,#141310,#0d0c09);padding:52px 44px;text-align:center;position:relative}
 .svc-banner::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;background:var(--gold-grad)}
 .svc-banner .az{font-family:var(--serif);font-size:14px;letter-spacing:.3em;color:var(--gold2)}
@@ -421,7 +421,7 @@ h1,h2,h3,h4{-webkit-hyphens:auto;hyphens:auto}
 .tool h3 sup{font-size:.5em;color:var(--gold1);top:-.9em}
 .tool p{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:18px}
 .tool .dimrow{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:26px}
-.tool .dimrow span{font-size:10.5px;letter-spacing:.04em;color:var(--muted);border:1px solid var(--border2);padding:5px 10px;border-radius:30px}
+.tool .dimrow span{font-size:12.5px;font-weight:600;letter-spacing:.03em;color:var(--white);border:1px solid var(--border);padding:7px 13px;border-radius:30px}
 .intel-note{font-size:12.5px;color:var(--muted2);text-align:center;margin-top:40px;font-style:italic;max-width:720px;margin-left:auto;margin-right:auto}
 
 /* ---------- CLIENT JOURNEY ---------- */
@@ -587,7 +587,7 @@ footer{background:#080808;border-top:1px solid var(--border);padding:74px 0 34px
   border-radius:2px;
 }
 *:focus:not(:focus-visible){outline:none}
-.svc .purpose,.tool .te,.tool .dimrow span{font-size:11px}
+.svc .purpose,.tool .te{font-size:11px}
 :root{--muted2:#6E6757}
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}

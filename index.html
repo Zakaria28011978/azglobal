@@ -18,6 +18,12 @@ CHANGE LOG (every modification, global CSS / one markup line only):
 4. [Accessibility] Raised sub-11px tracked micro-labels to an 11px floor
    (.brand-sub 8.5px->11px; .svc .purpose / .tool .te / .tool .dimrow span ->11px).
 5. [Visual] Nudged lowest-contrast supporting text (--muted2 -> #6E6757) for legibility.
+7. [DSGVO/GDPR] Self-hosted all webfonts. Removed Google Fonts CDN dependency
+   (fonts.googleapis.com link + 4 @import statements + 2 preconnects). Replaced
+   with @font-face declarations pointing to /fonts/*.woff2 (latin slice covers
+   EN+DE). Reason: loading fonts from Google CDN sends visitor IP to Google
+   without consent (LG München I 2022); especially sensitive for a DACH
+   advisory positioned on confidentiality. 8 woff2 files at repo root /fonts/.
 6. [Dead-code removal] Removed an orphaned inline diagnostic quiz +
    ROI calculator (~71 lines). Its target elements (audit-questions/bars/score/step/
    gate/result, roi-gate/result/amt, rg-name) did not exist and no handler referenced
@@ -195,9 +201,18 @@ GOVERNANCE COMPLIANCE CONFIRMATION:
 }
 </script>
 <link rel="icon" type="image/png" href="data:image/png;base64,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">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Archivo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<!-- Fonts self-hosted (DSGVO/GDPR — no third-party CDN). Latin slice covers EN+DE.
+     Files live at /fonts/ alongside index.html. -->
+<style>
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:300 700;font-display:swap;src:url(fonts/fraunces-variable-roman-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'Fraunces';font-style:italic;font-weight:300 600;font-display:swap;src:url(fonts/fraunces-variable-italic-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'Archivo';font-style:normal;font-weight:300 700;font-stretch:100%;font-display:swap;src:url(fonts/archivo-variable-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'Inter';font-style:normal;font-weight:300 600;font-display:swap;src:url(fonts/inter-variable-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'DM Mono';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/dmmono-400-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'DM Mono';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/dmmono-500-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'DM Serif Display';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/dmserifdisplay-regular-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'DM Serif Display';font-style:italic;font-weight:400;font-display:swap;src:url(fonts/dmserifdisplay-italic-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+</style>
 <style>
 :root{
   --black:#0B0B0B;--black2:#111111;--black3:#161616;--black4:#1C1C1C;
@@ -1241,7 +1256,7 @@ function submitContact(e){
     <button onclick="closeTool()" style="background:transparent;border:1px solid rgba(201,168,76,.3);color:#C9A84C;padding:8px 14px;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;font-family:sans-serif;min-height:36px;-webkit-tap-highlight-color:transparent;">✕ Close</button>
   </div>
   <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap');
+/* fonts self-hosted at top of document */
 #tool-panel-roi,#tool-panel-roi *,#tool-panel-roi *::before,#tool-panel-roi *::after,#tool-panel-audit,#tool-panel-audit *,#tool-panel-audit *::before,#tool-panel-audit *::after{box-sizing:border-box;margin:0;padding:0}
 
 
@@ -1950,7 +1965,7 @@ function submitContact(e){
 
 
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+/* fonts self-hosted at top of document */
 #tool-panel-roi,#tool-panel-roi *,#tool-panel-roi *::before,#tool-panel-roi *::after,#tool-panel-audit,#tool-panel-audit *,#tool-panel-audit *::before,#tool-panel-audit *::after{box-sizing:border-box;margin:0;padding:0}
 
 #tool-panel-roi, #tool-panel-roi{background:#000;color:#F5F0E8;font-family:Inter,sans-serif;line-height:1.7;font-size:15px}
@@ -3180,7 +3195,7 @@ try{window.submitLead=submitLead;}catch(e){}
     <button onclick="closeTool()" style="background:transparent;border:1px solid rgba(201,168,76,.3);color:#C9A84C;padding:8px 14px;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;font-family:sans-serif;min-height:36px;-webkit-tap-highlight-color:transparent;">✕ Close</button>
   </div>
   <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap');
+/* fonts self-hosted at top of document */
 #tool-panel-roi,#tool-panel-roi *,#tool-panel-roi *::before,#tool-panel-roi *::after,#tool-panel-audit,#tool-panel-audit *,#tool-panel-audit *::before,#tool-panel-audit *::after{box-sizing:border-box;margin:0;padding:0}
 
 #tool-panel-audit, #tool-panel-audit{background:#000!important;color:#F5F0E8;font-family:Inter,sans-serif;min-height:100vh;line-height:1.6}
@@ -3684,7 +3699,7 @@ try{window.submitLead=submitLead;}catch(e){}
 
 
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+/* fonts self-hosted at top of document */
 #tool-panel-roi,#tool-panel-roi *,#tool-panel-roi *::before,#tool-panel-roi *::after,#tool-panel-audit,#tool-panel-audit *,#tool-panel-audit *::before,#tool-panel-audit *::after{box-sizing:border-box;margin:0;padding:0}
 
 #tool-panel-audit, #tool-panel-audit{background:#000;color:#F5F0E8;font-family:Inter,sans-serif;line-height:1.7;font-size:15px}

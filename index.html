@@ -4875,6 +4875,14 @@ try{window.getOnePagerHTML=getOnePagerHTML;}catch(e){}
       <p style="font-size:13px;line-height:1.9;margin:0;">Zakaria Ayyad<br>A-Z Global Security Consulting</p>
     </div>
     <div style="margin-bottom:24px;">
+      <div style="font-size:10px;letter-spacing:.12em;color:#C9A84C;text-transform:uppercase;margin-bottom:10px;">Tax · Steuer</div>
+      <p style="font-size:13px;line-height:1.9;margin:0;">Legal form: Einzelunternehmen<br>Steuernummer: 107/2023/1606 (Finanzamt Duisburg)<br>Gemäß § 19 UStG wird keine Umsatzsteuer berechnet (Kleinunternehmerregelung).</p>
+    </div>
+    <div style="margin-bottom:24px;">
+      <div style="font-size:10px;letter-spacing:.12em;color:#C9A84C;text-transform:uppercase;margin-bottom:10px;">Activity · Tätigkeit</div>
+      <p style="font-size:13px;line-height:1.9;margin:0;">Reine Beratungstätigkeit. Kein Bewachungsgewerbe gemäß § 34a GewO.<br><span style="color:rgba(245,240,232,.55);font-size:12px;">Advisory only. Not subject to § 34a German Trade Code (security guard licensing).</span></p>
+    </div>
+    <div style="margin-bottom:24px;">
       <div style="font-size:10px;letter-spacing:.12em;color:#C9A84C;text-transform:uppercase;margin-bottom:10px;">Disclaimer</div>
       <p style="font-size:13px;line-height:1.9;margin:0;">Despite careful content control, we assume no liability for the content of external links. The operators of linked pages are solely responsible for their content.</p>
     </div>
@@ -5212,53 +5220,7 @@ h1.reveal.in .az-word{
   to{transform:rotateY(360deg)}
 }
 
-/* ============================================================
-   Loading curtain
-   ============================================================ */
-#az-curtain{
-  position:fixed;inset:0;z-index:99999;background:#0B0B0B;
-  display:flex;align-items:center;justify-content:center;
-  opacity:1;transition:opacity .7s ease;
-  overflow:hidden;
-}
-#az-curtain::before{
-  content:"";position:absolute;inset:-1px;pointer-events:none;
-  background:
-    radial-gradient(circle at 50% 50%, rgba(201,168,76,.10) 0%, transparent 55%),
-    linear-gradient(180deg, #0B0B0B, #0d0c09 50%, #0B0B0B);
-}
-#az-curtain.az-curtain-hide{opacity:0;pointer-events:none}
-.az-curtain-inner{position:relative;display:flex;align-items:center;justify-content:center;z-index:2}
-.az-curtain-ring{
-  position:absolute;width:170px;height:170px;border-radius:50%;
-  border:1px solid rgba(201,168,76,.28);pointer-events:none;
-  animation:azRing 1.8s cubic-bezier(.2,.7,.3,1) infinite;
-}
-.az-curtain-ring.r2{animation-delay:.45s;width:170px;height:170px}
-@keyframes azRing{
-  0%  {transform:scale(.55);opacity:0}
-  25% {opacity:.7}
-  100%{transform:scale(1.7);opacity:0}
-}
-.az-curtain-logo{
-  width:96px;height:auto;display:flex;align-items:center;justify-content:center;
-  filter:drop-shadow(0 0 32px rgba(201,168,76,.55));
-  animation:azLogoSpin 1.4s cubic-bezier(.34,1.15,.4,1) both;
-}
-.az-curtain-logo img,.az-curtain-logo svg{width:96px;height:auto;display:block}
-@keyframes azLogoSpin{
-  0%  {opacity:0;transform:rotate(-120deg) scale(.45)}
-  40% {opacity:1}
-  100%{opacity:1;transform:rotate(360deg) scale(1)}
-}
-.az-curtain-name{
-  position:absolute;bottom:-70px;left:50%;transform:translateX(-50%);
-  font-family:var(--serif);font-size:18px;letter-spacing:.42em;
-  color:var(--gold2);white-space:nowrap;
-  opacity:0;animation:azCurtainName .9s ease .6s forwards;
-}
-@keyframes azCurtainName{to{opacity:1}}
-body.az-locked{overflow:hidden!important}
+/* Loading curtain removed — see JS block 0 for context. */
 
 /* ============================================================
    Contact form — floating labels + inline validation
@@ -5339,8 +5301,6 @@ body.az-locked{overflow:hidden!important}
 
 /* Reduced motion: kill all decorative bits */
 @media (prefers-reduced-motion: reduce){
-  #az-curtain,#az-curtain *{animation:none!important;transition:none!important}
-  #az-curtain{display:none!important}
   .brand img{animation:none!important;transform:none!important}
   .brand:hover img{filter:none}
 }
@@ -5352,39 +5312,8 @@ body.az-locked{overflow:hidden!important}
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var coarse  = matchMedia('(pointer: coarse)').matches;
 
-  /* ---- 0. Loading curtain (runs first, before anything else) ---- */
-  if(!reduced){
-    var curtain = document.createElement('div');
-    curtain.id = 'az-curtain';
-    curtain.innerHTML =
-      '<div class="az-curtain-inner">' +
-        '<div class="az-curtain-ring"></div>' +
-        '<div class="az-curtain-ring r2"></div>' +
-        '<div class="az-curtain-logo"></div>' +
-        '<div class="az-curtain-name">A&middot;Z GLOBAL</div>' +
-      '</div>';
-    document.body.appendChild(curtain);
-    document.body.classList.add('az-locked');
-    // Clone the existing brand logo into the curtain so we use the real asset
-    var srcLogo = document.querySelector('.brand img');
-    var slot    = curtain.querySelector('.az-curtain-logo');
-    if(srcLogo && slot){
-      var c = srcLogo.cloneNode(true);
-      c.removeAttribute('loading');
-      c.removeAttribute('width');
-      c.removeAttribute('height');
-      c.removeAttribute('style');
-      slot.appendChild(c);
-    }
-    // After the logo's spin + a brief beat, hide the curtain and let the page through.
-    setTimeout(function(){
-      curtain.classList.add('az-curtain-hide');
-      document.body.classList.remove('az-locked');
-      setTimeout(function(){
-        if(curtain.parentNode) curtain.parentNode.removeChild(curtain);
-      }, 750);
-    }, 1700);
-  }
+  /* ---- 0. Loading curtain removed — page loads straight in; the nav brand
+            logo already does a continuous rotateY (see .brand img / azBrandFlip). ---- */
 
   /* ---- 1. Scroll progress bar ---- */
   var bar = document.createElement('div');
